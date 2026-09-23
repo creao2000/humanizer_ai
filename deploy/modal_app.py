@@ -104,7 +104,7 @@ MAX_SENTENCES_PER_REQUEST = 200
 # without paying idle GPU cost around the clock like a permanent
 # min_containers=1 would. First request after a longer idle gap still pays
 # the full cold-start cost.
-SCALEDOWN_WINDOW = 150  # seconds — tune between 120-180 as you like
+SCALEDOWN_WINDOW = 300  # seconds — tune between 120-180 as you like
 
 
 def _split_sentences(text: str) -> list[str]:
@@ -304,7 +304,6 @@ def _score_with_detector(tok, model, device: str, text: str) -> float:
 # --------------------------------------------------------------------------
 @app.cls(
     image=image,
-    gpu="T4",
     volumes={MODEL_CACHE: volume},
     timeout=120,
     scaledown_window=SCALEDOWN_WINDOW,
@@ -371,7 +370,6 @@ class Detector:
 # --------------------------------------------------------------------------
 @app.cls(
     image=image,
-    gpu="T4",
     volumes={MODEL_CACHE: volume},
     timeout=180,
     scaledown_window=SCALEDOWN_WINDOW,
@@ -443,7 +441,6 @@ class Paraphraser:
 # --------------------------------------------------------------------------
 @app.cls(
     image=image,
-    gpu="T4",
     volumes={MODEL_CACHE: volume},
     timeout=180,
     scaledown_window=SCALEDOWN_WINDOW,
@@ -582,7 +579,6 @@ adversarial_image = image.pip_install("google-genai")
 
 @app.cls(
     image=adversarial_image,
-    gpu="T4",
     volumes={MODEL_CACHE: volume},
     timeout=300,
     scaledown_window=SCALEDOWN_WINDOW,
