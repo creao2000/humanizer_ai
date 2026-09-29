@@ -304,6 +304,7 @@ def _score_with_detector(tok, model, device: str, text: str) -> float:
 # --------------------------------------------------------------------------
 @app.cls(
     image=image,
+    gpu="T4",
     volumes={MODEL_CACHE: volume},
     timeout=120,
     scaledown_window=SCALEDOWN_WINDOW,
@@ -370,6 +371,7 @@ class Detector:
 # --------------------------------------------------------------------------
 @app.cls(
     image=image,
+    gpu="T4",
     volumes={MODEL_CACHE: volume},
     timeout=180,
     scaledown_window=SCALEDOWN_WINDOW,
@@ -441,6 +443,7 @@ class Paraphraser:
 # --------------------------------------------------------------------------
 @app.cls(
     image=image,
+    gpu="T4",
     volumes={MODEL_CACHE: volume},
     timeout=180,
     scaledown_window=SCALEDOWN_WINDOW,
@@ -579,6 +582,7 @@ adversarial_image = image.pip_install("google-genai")
 
 @app.cls(
     image=adversarial_image,
+    gpu="T4",
     volumes={MODEL_CACHE: volume},
     timeout=300,
     scaledown_window=SCALEDOWN_WINDOW,
